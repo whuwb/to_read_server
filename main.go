@@ -1,23 +1,14 @@
 package main
 
 import (
+	"ToRead/db"
 	"encoding/json"
 	"log"
 	"net/http"
 )
 
-type ToRead struct {
-	Title    string
-	Referrer string
-}
-
-type ToReads []ToRead
-
 func getToReadsHandler(w http.ResponseWriter, r *http.Request) {
-	toReads := ToReads{
-		ToRead{Title: "计算广告"},
-		ToRead{Title: "智能商业"},
-	}
+	toReads := db.FetchToReads()
 
 	json.NewEncoder(w).Encode(toReads)
 }
